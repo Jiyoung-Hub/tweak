@@ -3,7 +3,7 @@
 
 SELECT title
 FROM Movie
-WHERE director = 'Steven Spielberg'
+WHERE director = 'Steven Spielberg';
 
 -- Q2. Find all years that have a movie that received a rating of 4 or 5, and sort them in increasing order.
 
@@ -12,7 +12,7 @@ FROM Movie AS m
 LEFT JOIN Rating AS r
 ON m.mID = r.mID
 WHERE r.stars >= 4
-ORDER BY m.year
+ORDER BY m.year;
 
 -- Q3. Find the titles of all movies that have no ratings.
 
@@ -20,14 +20,14 @@ SELECT title
 FROM Movie AS m
 LEFT JOIN Rating AS r
 ON m.mID = r.mID
-WHERE r.stars IS NULL
+WHERE r.stars IS NULL;
 
 --Q4. Some reviewers didn't provide a date with their rating. Find the names of all reviewers who have ratings 
       with a NULL value for the date.
 
 SELECT name
 FROM Reviewer
-WHERE rID IN (SELECT rID FROM Rating WHERE ratingDate IS NULL)
+WHERE rID IN (SELECT rID FROM Rating WHERE ratingDate IS NULL);
 
 --Q5. Write a query to return the ratings data in a more readable format: reviewer name, movie title, stars, and ratingDate. 
       Also, sort the data, first by reviewer name, then by movie title, and lastly by number of stars.
@@ -38,7 +38,7 @@ INNER JOIN Rating AS ra
 ON m.mID = ra.mID
 INNER JOIN Reviewer AS re
 ON re.rID = ra.rID
-ORDER BY re.name, m.title, ra.stars
+ORDER BY re.name, m.title, ra.stars;
 
 --Q6. For all cases where the same reviewer rated the same movie twice and gave it a higher rating the second time, 
       return the reviewer's name and the title of the movie.
@@ -49,7 +49,7 @@ LEFT JOIN Reviewer AS re
 ON re.rID = r1.rID
 LEFT JOIN Movie AS m
 ON m.mID = r1.mID
-WHERE r1.rID = r2.rID and r1.mID = r2.mID and r2.ratingDate > r1.ratingDate and r2.stars > r1.stars         
+WHERE r1.rID = r2.rID and r1.mID = r2.mID and r2.ratingDate > r1.ratingDate and r2.stars > r1.stars;         
       
 --Q7. For each movie that has at least one rating, find the highest number of stars that movie received. 
       Return the movie title and number of stars. Sort by movie title.
@@ -60,7 +60,7 @@ INNER JOIN Rating AS ra
 ON m.mID = ra.mID
 WHERE ra.stars IS NOT NULL
 GROUP BY m.title
-ORDER BY m.title
+ORDER BY m.title;
       
 --Q8. For each movie, return the title and the 'rating spread', that is, the difference between highest
       and lowest ratings given to that movie. Sort by rating spread from highest to lowest, then by movie title.
@@ -70,7 +70,7 @@ FROM Movie AS m
 INNER JOIN Rating AS ra
 ON m.mID = ra.mID
 GROUP BY m.title
-ORDER BY (MAX(ra.stars)-MIN(ra.stars)) DESC, m.title
+ORDER BY (MAX(ra.stars)-MIN(ra.stars)) DESC, m.title;
 
 --Q9. Find the difference between the average rating of movies released before 1980 and the average rating of
       movies released after 1980. (Make sure to calculate the average rating for each movie, then the average of those averages 
@@ -92,5 +92,5 @@ FROM(
     INNER JOIN Movie AS m
     ON ra.mID = m.mID
     GROUP BY ra.mID) 
-WHERE year > 1980)      
+WHERE year > 1980);      
 
