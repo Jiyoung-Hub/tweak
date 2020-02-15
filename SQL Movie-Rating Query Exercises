@@ -1,3 +1,4 @@
+
 -- Q1. Find the titles of all movies directed by Steven Spielberg.
 
 SELECT title
@@ -92,3 +93,4 @@ FROM(
     ON ra.mID = m.mID
     GROUP BY ra.mID) 
 WHERE year > 1980)      
+
