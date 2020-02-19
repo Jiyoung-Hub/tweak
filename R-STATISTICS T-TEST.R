@@ -22,11 +22,11 @@ data_gender1 <- data[data$gender==1,]
 t.test(BMI~magicpill, data=data_gender0)
 t.test(BMI~magicpill, data=data_gender1)
 
-b = lm(BMI ~ gender+weightmagicpill+ height+gender*weightmagicpill+height*gender+weightmagicpill*height, data=data)
+b = lm(BMI ~ gender + weightmagicpill + height + gender*weightmagicpill + gender*height + weightmagicpill*height, data=data)
 summary(b)
 
 # model vs model
-lm(BMI ~ gender + height + height*gender) # t-test + lm regression
+lm(BMI ~ gender + height + height*gender) # linear model regression
 lm(BMI ~ gender, data=data) # t-test (a special form of lm regression)
 
 # test
@@ -48,6 +48,7 @@ t.test(BMI_diff~magicpill, data=data)
 """
 
 1. Evaluate its expected validity in terms of experimental design 
+
 * Randomization checks: I tested the statistical difference for gender, height, and weight_magic_pill. P-value was 0.5484, 0.7598 and
   3.509e-05 each. Except 'weight_magic_pill' feature, the groups seem to be randomized properly.
 
@@ -62,27 +63,28 @@ t.test(BMI_diff~magicpill, data=data)
   of BMI before and after the treatment. 
 
 2. Did the pill work?
-  If we run the t-test for 'BMI' of two sample groups, p-value is 5.482e-05, which means that we can reject the null hypothesis; 
-  However, we can't jump into that conclusion as we do not know the prior BMI distribution of each group as well as valid control information. 
+
+  If we run the t-test for 'BMI' of two sample groups, p-value is 5.482e-05, which means that we can reject the null hypothesis; however,
+  we can't jump into that conclusion as we do not know the prior BMI distribution of each group as well as valid control information. 
 
 3. Is there a different effect on men vs women? Would you recommend marketing the pill to both?
-  *Gender group 0: the mean difference before and after magic pill treatment is 2.88 with p-value = 0.01617. The difference is statistically 
-   significant at alpha 5% 
-  
-  *Gender group 1: the mean difference before and after magic pill treatment is 5.21 with p-value = 0.001632. The difference is statistically
-   significant at alpha 5% within the group.
 
-  However, we can't say that this difference is derived by taking the magic pill. Under the assumption that the BMI at the end of the trial 
-  represents the effect of the pill, I would recommend marketing the pill to both groups.
+ *Gender group 0: mean difference before and after magic pill treatment is 2.88 with p-value = 0.01617. The difference is statistically 
+  significant at alpha 5% 
+  
+ *Gender group 1: mean difference before and after magic pill treatment is 5.21 with p-value = 0.001632. The difference is statistically
+  significant at alpha 5% within the group.
+
+  However, we can't say that this difference is derived by taking the magic pill. Only when the BMI at the end of the trial represents 
+  the effect of the pill, I would recommend marketing the pill to both groups.
 
 4. FDA will only consider a pill "effective" if you can show 8% improvement with 98% confidence. Will this experiment be enough or will 
   another one be needed?
+
   Another experiment will be needed. If we want to show 8% improvement with 98% confidence, we need randomized two groups, 
   before and after BMI, and the external factor controls. 
   
   In terms of the sample size, according to the power test, we need 3137.612 sample size to ensure 8% improvement with 98% confidence. 
   According to current setting, we can detect 0.31 difference, so the sample size is not sufficient. 
-  
-  As a consequence, we need to not only collect more participants but redesign the experiment.
 
 """
