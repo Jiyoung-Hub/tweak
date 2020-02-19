@@ -38,3 +38,4 @@ result_group # same F, p-value with the result of 'model'
 full = lm(value ~ 1 + group_b + group_c + age, D)
 summary(full)
 
+
