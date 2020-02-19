@@ -39,3 +39,5 @@ test5 = lm(value ~ 1 + group_b + group_c, data=D)
 test6 = lm(value ~ 1, data=D)
 anova(test5,test6)
 
+
+
