@@ -40,3 +40,5 @@ test6 = lm(value ~ 1, data=D)
 anova(test5,test6)
 
 
+
+
