@@ -1,3 +1,6 @@
+
+# Statistical Test - one way ANOVA
+
 set.seed(40)
 rnorm_fixed = function(N, mu = 0, sd = 1)
   scale(rnorm(N)) * sd + mu
@@ -15,21 +18,25 @@ D = data.frame(
 )  # N of each level
 
 View(D)# Crossing factor
-###############################################################################
+
 # modeling
 
-a = car::Anova(aov(value ~ group, D))  # Dedicated ANOVA function
-b = lm(value ~ 1 + group_b + group_c, data = D)  # As in-your-face linear model
-summary(b)
+model = car::Anova(aov(value ~ group, D))  # Dedicated ANOVA function
+model
+
+linear_model = lm(value ~ 1 + group_b + group_c, data = D)  # As in-your-face linear model
+summary(linear_model)
 
 test1 = lm(value ~ 1 + group_b + group_c, data=D)
-test2 = lm(value ~ 1 + group_c, data=D)
+test2 = lm(value ~ 1 + group_c, data=D) # without group_b / same p-value as that of group_b in the linear model
 anova(test1,test2)
 
 test3 = lm(value ~ 1 + group_b + group_c, data=D)
-test4 = lm(value ~ 1 + group_b, data=D)
+test4 = lm(value ~ 1 + group_b, data=D) # without group_c / same p-value as that of group_c in the linear model
 anova(test3,test4)
 
 test5 = lm(value ~ 1 + group_b + group_c, data=D)
 test6 = lm(value ~ 1, data=D)
 anova(test5,test6)
+
+
